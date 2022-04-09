@@ -1,16 +1,41 @@
-// First thing to do is get the user's location
-// Center the map on those coords, and drop a marker there as well
+async function main() {
+	// First thing to do is get the user's location
+	// Center the map on those coords, and drop a marker there as well
+	// make a function to get the user's location
+	async function getCoords(){
+		pos = await new Promise((resolve, reject) => {
+			navigator.geolocation.getCurrentPosition(resolve, reject)
+		})
+		return [pos.coords.latitude, pos.coords.longitude]
+	}
+	 
+	var coords = await getCoords()
+	if (!Array.isArray(coords)) {
+		console.log("Returned coords is not an array.")
+		return
+	}
+	console.log(coords)
 
-// make a function to get the user's location
+	// build the map
+	const map = L.map('map', {
+		center: coords,
+		zoom: 12,
+	});
 
-// get the tiles for the map
+	// get the tiles for the map
+	L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+		minZoom: '15'
+	}).addTo(map)
 
-// get places from foursquare
+	// get places from foursquare
 
-// drop a marker at the user's location
+	// drop a marker at the user's location
 
-// drop markers at different locations
+	// drop markers at different locations
 
-// group markers
+	// group markers
 
-// add overlay selection
+	// add overlay selection
+
+}
