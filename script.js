@@ -68,7 +68,7 @@ async function main() {
 
 	// drop markers at different locations
 	let coffee = L.layerGroup(await getLocations('coffee'))
-	let resturaunt = L.layerGroup(await getLocations('resturaunt'))
+	let restaurants = L.layerGroup(await getLocations('restaurants'))
 	let hotel = L.layerGroup(await getLocations('hotel'))
 	let market = L.layerGroup(await getLocations('market'))
 	// group markers
@@ -76,7 +76,7 @@ async function main() {
 	// add overlay selection
 	const overlayMaps = {
 		"Coffee": coffee,
-		"Resturaunt": resturaunt,
+		"Restaurants": restaurants,
 		"Hotel": hotel,
 		"Market": market
 	}
