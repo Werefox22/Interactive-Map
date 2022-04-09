@@ -14,7 +14,6 @@ async function main() {
 		console.log("Returned coords is not an array.")
 		return
 	}
-	console.log(coords)
 
 	// build the map
 	const map = L.map('map', {
@@ -29,14 +28,47 @@ async function main() {
 	}).addTo(map)
 
 	// get places from foursquare
+	// Foursquare api key:
+	// fsq3RuX5dWsMDJPYUuy1jY4NAulEn2hp0c30hZqXr6vXBvc=	
+	// katie's api key:
+	// fsq3uktwF88fZ6Eq3ihzNKPU1ru0c9PhrTPwIBQktkkyGXg=
+
+	const options = {
+		method: 'GET',
+		headers: {
+		  Accept: 'application/json',
+		  Authorization: 'fsq3uktwF88fZ6Eq3ihzNKPU1ru0c9PhrTPwIBQktkkyGXg='
+		}
+	};
+	
+	let long = coords[0]
+	let lat = coords[1]
+
+	let buisiness = "coffee"
+
+	let response = await fetch(`https://cors-anywhere.herokuapp.com/https://api.foursquare.com/v3/places/search?query=${buisiness}&ll=${long}%2C${lat}&limit=5`, options)
+	let result = await response.text()
+	let parsedResults = JSON.parse(result)
+	let locations = parsedResults.results
+
+	for (let i = 0; i < locations.length; i++) {
+		console.log(locations[i].geocodes)
+	}
 
 	// drop a marker at the user's location
-	const usersLocation = L.marker(coords).addTo(map).bindPopup('You are Here').openPopup()
+	const usersLocation = L.marker(coords).addTo(map).bindPopup('<b>You Are Here</b>').openPopup()
 
 	// drop markers at different locations
 
 	// group markers
 
 	// add overlay selection
-
+	// const overlayMaps = {
+	// 	"Coffee": coffee
+	// 	// "Resturaunt": resturaunt,
+	// 	// "Hotel": hotel,
+	// 	// "Market": market
+	// }
+	
+	// L.control.layers(null, overlayMaps).addTo(map)
 }
