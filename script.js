@@ -31,6 +31,7 @@ async function main() {
 	// get places from foursquare
 
 	// drop a marker at the user's location
+	const usersLocation = L.marker(coords).addTo(map).bindPopup('You are Here').openPopup()
 
 	// drop markers at different locations
 
